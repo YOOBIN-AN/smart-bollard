@@ -92,9 +92,6 @@ flowchart TB
 ```
 <sub>파랑: 하드웨어 · 초록: 소프트웨어 · 노랑: 내 담당(Database)</sub>
 
-<img src="docs/images/system_design.png" width="100%">
-<sub>기능 설계도 — 초음파 센서 · 카메라 · 서보(하드웨어)와 거리 처리 · 번호판 인식 · DB · ESP8266 제어(소프트웨어)의 연결</sub>
-
 ## ① 번호판 인식
 
 **목표** — 카메라로 차량 번호판을 인식해 글자를 정확하게 읽어내기
