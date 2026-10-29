@@ -24,24 +24,73 @@
 
 ## 시스템 구성
 
+**처리 흐름** — 카메라 영상이 세 파트를 거쳐 볼라드 제어 명령이 되기까지
+
 ```mermaid
 flowchart LR
     CAM[ESP32-CAM 영상]
-    CAM --> P1(["① 번호판 인식"]) --> A1[OpenCV 전처리<br>Gray · Blur · 이진화 · 평활화] --> A2[EasyOCR 글자 인식<br>번호판 형식 필터링]
-    A2 --> P2(["② DB 구축 · 연동"]) --> B1[MySQL 접속<br>bolla DB] --> B2[license_plates 조회<br>정확 일치 비교] --> B3[등록 여부 반환<br>True · False]
-    B3 --> P3(["③ 볼라드 제어"]) --> C1[상태 전환<br>Authorized · Unauthorized] --> C2[ESP8266 HTTP 요청<br>서보 · LED · 멜로디 · 부저]
+
+    subgraph S1["① 번호판 인식"]
+        direction TB
+        A1[OpenCV 전처리<br>Gray · Blur · 이진화 · 평활화] --> A2[EasyOCR 글자 인식<br>번호판 형식 필터링]
+    end
+
+    subgraph S2["② DB 구축 · 연동 — 내 담당"]
+        direction TB
+        B1[MySQL 접속<br>bolla DB] --> B2[license_plates 조회<br>정확 일치 비교] --> B3[등록 여부 반환<br>True · False]
+    end
+
+    subgraph S3["③ 볼라드 제어"]
+        direction TB
+        C1[상태 전환<br>Authorized · Unauthorized] --> C2[ESP8266 HTTP 요청<br>서보 · LED · 멜로디 · 부저]
+    end
+
+    CAM --> S1 --> S2 --> S3
 
     classDef io fill:#57606a,stroke:#57606a,color:#fff
     classDef cls fill:#f6f8fa,stroke:#d0d7de,color:#57606a
     classDef hack fill:#fff8c5,stroke:#d4a72c,color:#4d2d00
-    classDef lbl1 fill:#8c959f,stroke:#8c959f,color:#fff
-    classDef lbl2 fill:#57606a,stroke:#57606a,color:#fff
     class CAM io
     class A1,A2,C1,C2 cls
     class B1,B2,B3 hack
-    class P1,P3 lbl1
-    class P2 lbl2
+    style S1 fill:#ffffff,stroke:#d0d7de,color:#57606a
+    style S2 fill:#fffbea,stroke:#d4a72c,color:#4d2d00
+    style S3 fill:#ffffff,stroke:#d0d7de,color:#57606a
 ```
+
+**기능 설계도** — 하드웨어 장치와 소프트웨어 처리의 연결
+
+```mermaid
+flowchart TB
+    subgraph HW["HARDWARE"]
+        direction LR
+        US["초음파 센서<br>ESP8266"] ~~~ CAMH["카메라<br>ESP32-CAM"] ~~~ SV["서보 모터 · LED · 멜로디<br>ESP8266"]
+    end
+
+    subgraph SW["SOFTWARE"]
+        direction LR
+        DIST["초음파 데이터 처리<br>get_distance()"]
+        subgraph REC["번호판 판단"]
+            ALG["번호 인식 알고리즘<br>OpenCV · EasyOCR"] <--> DB["Database<br>MySQL"]
+        end
+        CTRL["ESP8266 제어<br>HTTP 요청"]
+        DIST -- "50cm 이내 1초<br>→ 촬영 시작" --> REC
+        REC -- "일치 여부에 따라" --> CTRL
+    end
+
+    HW <-.->|"센서값 · 영상 ↓ · 제어 명령 ↑"| SW
+
+    classDef hw fill:#ddf4ff,stroke:#54aeff,color:#0a3069
+    classDef sw fill:#dafbe1,stroke:#4ac26b,color:#116329
+    classDef mine fill:#fff8c5,stroke:#d4a72c,color:#4d2d00
+    class US,CAMH,SV hw
+    class DIST,ALG,CTRL sw
+    class DB mine
+    style HW fill:#f3f9ff,stroke:#0969da,color:#0969da
+    style SW fill:#f3fcf5,stroke:#1a7f37,color:#1a7f37
+    style REC fill:#ffffff,stroke:#1a7f37,stroke-dasharray:5 5,color:#116329
+```
+<sub>파랑: 하드웨어 · 초록: 소프트웨어 · 노랑: 내 담당(Database)</sub>
 
 <img src="docs/images/system_design.png" width="100%">
 <sub>기능 설계도 — 초음파 센서 · 카메라 · 서보(하드웨어)와 거리 처리 · 번호판 인식 · DB · ESP8266 제어(소프트웨어)의 연결</sub>
