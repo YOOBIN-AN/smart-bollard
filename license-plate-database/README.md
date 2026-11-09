@@ -260,7 +260,7 @@ python src/plate_db.py 123가1234         # → 미등록 차량
 - DB 생성 스크립트 → [`sql/database.sql`](sql/database.sql)
 - 연결 · 비교 모듈 → [`src/plate_db.py`](src/plate_db.py) (팀 원본 `client.py`에서 DB 부분만 분리)
 - 패키지 목록 → [`requirements.txt`](requirements.txt)
-- 카메라 · 볼라드 제어를 포함한 전체 시스템은 [팀 원본 저장소](https://github.com/Yunseo-Cho/2024ESWContest_free_1090)의 `client.py`로 실행합니다.
+- 카메라 · 볼라드 제어를 포함한 전체 시스템은 [`team-code/client.py`](../team-code/client.py)로 실행합니다.
 
 <sub>[↑ 목차](#목차)</sub>
 

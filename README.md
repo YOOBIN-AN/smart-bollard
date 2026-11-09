@@ -31,7 +31,8 @@
 팀명은 볼라볼라이며, 시스템을 네 파트로 나눠 진행했습니다.
 
 개발완료보고서 → [`smart-bollard-report.pdf`](docs/report/smart-bollard-report.pdf)  
-팀 원본 저장소 (펌웨어 · 전체 제어 코드) → [Yunseo-Cho/2024ESWContest_free_1090](https://github.com/Yunseo-Cho/2024ESWContest_free_1090)
+전체 시스템 코드 (펌웨어 · 제어) → [`team-code/`](team-code/)  
+팀 원본 저장소 → [Yunseo-Cho/2024ESWContest_free_1090](https://github.com/Yunseo-Cho/2024ESWContest_free_1090)
 
 <sub>[↑ 목차](#목차)</sub>
 
@@ -130,6 +131,7 @@ flowchart TB
 <pre>
 smart-bollard/
 ├── <a href="license-plate-database/">license-plate-database/</a>             ② DB 구축 · 연동 (상세 README · SQL · 코드)
+├── <a href="team-code/">team-code/</a>                          전체 시스템 코드 (PC · ESP8266 · ESP32-CAM)
 └── <a href="docs/">docs/</a>
     ├── <a href="docs/images/">images/</a>                         대표 결과 이미지
     └── <a href="docs/report/smart-bollard-report.pdf">report/</a>                         개발완료보고서 (PDF)
