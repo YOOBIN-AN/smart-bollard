@@ -50,6 +50,19 @@
 ② DB 구축 · 연동의 데모 · 동작 원리 · 코드 · 개발 과정은 [`license-plate-database/`](license-plate-database/)에서 볼 수 있습니다.
 
 <details>
+<summary><b>① 번호판 전처리 과정</b></summary>
+<br>
+
+<p>
+<img src="docs/images/plate_original.png" width="32%">
+<img src="docs/images/plate_preprocessed.png" width="32%">
+<img src="docs/images/plate_binarized.png" width="32%">
+</p>
+<sub>원본 → 블러 · 대비 보정 → 이진화</sub>
+
+</details>
+
+<details>
 <summary><b>기능 설계도</b> — 하드웨어와 소프트웨어의 연결</summary>
 <br>
 
