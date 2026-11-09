@@ -40,7 +40,7 @@
 
 ## 2. 시스템 구성
 
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | ① 번호판 인식<br>조윤서 | ② [DB 구축 · 연동](license-plate-database/)<br>**안유빈** (설계 · 구현 · 통합) | ③ 볼라드 제어 · 통신<br>장서윤 | ④ 회로 · 3D 모델링<br>박세준 |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | ① 번호판 인식<br>조윤서 | ② [DB 구축 · 연동](license-plate-database/)<br>**안유빈** (설계·구현·통합) | ③ 볼라드 제어 · 통신<br>장서윤 | ④ 회로 · 3D 모델링<br>박세준 |
 |---|---|---|---|---|
 | **하드웨어** | ESP32-CAM | PC · MySQL 서버 | ESP8266 · 초음파 센서 · 서보 2개 | LED 3색 · 멜로디 IC · 부저 · 볼라드 외형 |
 | **입력** | 카메라 프레임 | 인식된 번호판 후보 | 초음파 거리 · DB 판단 결과 | — |
