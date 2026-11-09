@@ -79,6 +79,7 @@ https://github.com/user-attachments/assets/ee943a0c-2299-4359-882a-5a0a4dbe1a60
 ### 테이블 설계
 
 ```mermaid
+%%{init: {'theme':'base','themeVariables':{'primaryColor':'#f6f8fa','primaryTextColor':'#24292f','primaryBorderColor':'#57606a','lineColor':'#57606a','attributeBackgroundColorOdd':'#ffffff','attributeBackgroundColorEven':'#f6f8fa'}}}%%
 erDiagram
     license_plates {
         INT id PK "AUTO_INCREMENT"
