@@ -41,7 +41,7 @@
 
 ### 등록 차량
 
-<!-- 영상: demo_authorized.mp4 -->
+https://github.com/user-attachments/assets/be0b1579-234d-420e-9612-1bd4a0511215
 
 <sub>번호판 일치 → 녹색 LED · 멜로디 → 볼라드 하강</sub>
 
@@ -49,7 +49,7 @@
 
 ### 미등록 차량
 
-<!-- 영상: demo_unauthorized.mp4 -->
+https://github.com/user-attachments/assets/42c37771-f4db-4024-b7cf-39a931de5721
 
 <sub>번호판 불일치 → 빨간 LED 점멸 · 부저, 볼라드 유지</sub>
 
@@ -57,7 +57,7 @@
 
 ### 전체 동작
 
-<!-- 영상: demo_full_cycle.mp4 -->
+https://github.com/user-attachments/assets/ee943a0c-2299-4359-882a-5a0a4dbe1a60
 
 <sub>하강 → 주차 → 출차 → 볼라드 상승 (차량이 없는 대기 구간은 잘라냄)</sub>
 
