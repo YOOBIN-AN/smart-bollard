@@ -12,10 +12,10 @@ PC(`client.py`)가 ESP8266에서 초음파 거리를 받고, ESP32-CAM 사진으
 
 | 파일 | 실행 위치 | 내용 | 작성 |
 |---|---|---|---|
-| [`client.py`](client.py) | PC (Python) | 초음파 거리 확인 → 번호판 인식 → DB 비교 → 상태별 볼라드 · LED · 멜로디 · 부저 제어 | 공동 (DB 함수: 안유빈) |
-| [`database.sql`](database.sql) | MySQL | 등록 차량 DB 생성 ([`sql/database.sql`](../license-plate-database/sql/database.sql)과 같은 파일) | 안유빈 |
-| [`ESP8266/ESP8266.ino`](ESP8266/ESP8266.ino) | ESP8266 | `/distance` · `/move_servo` · `/control_led` · 멜로디 · 부저 HTTP 서버 | 공동 |
-| [`CameraWebServer/`](CameraWebServer/) | ESP32-CAM | `/capture`로 사진을 제공하는 카메라 웹 서버 (ESP32 CameraWebServer 예제 기반) | 공동 |
+| [`client.py`](client.py) | PC (Python) | 초음파 거리 확인 → 번호판 인식 → DB 비교 →<br>상태별 볼라드 · LED · 멜로디 · 부저 제어 | 공동 (DB 함수: 안유빈) |
+| [`database.sql`](database.sql) | MySQL | 등록 차량 DB 생성<br>([`sql/database.sql`](../license-plate-database/sql/database.sql)과 같은 파일) | 안유빈 |
+| [`ESP8266/ESP8266.ino`](ESP8266/ESP8266.ino) | ESP8266 | `/distance` · `/move_servo` · `/control_led` ·<br>멜로디 · 부저 HTTP 서버 | 공동 |
+| [`CameraWebServer/`](CameraWebServer/) | ESP32-CAM | `/capture`로 사진을 제공하는 카메라 웹 서버<br>(ESP32 CameraWebServer 예제 기반) | 공동 |
 
 ### 핀 배치 (ESP8266)
 

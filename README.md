@@ -40,12 +40,12 @@
 
 ## 2. 시스템 구성
 
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | ① 번호판 인식<br>조윤서 | ② [DB 구축 · 연동](license-plate-database/)<br>**안유빈** (설계·구현·통합) | ③ 볼라드 제어 · 통신<br>장서윤 | ④ 회로 · 3D 모델링<br>박세준 |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | ① 번호판 인식<br>조윤서 | ② [DB 구축 · 연동](license-plate-database/)<br>**안유빈**<br>(설계·구현·통합) | ③ 볼라드 제어 · 통신<br>장서윤 | ④ 회로 · 3D 모델링<br>박세준 |
 |---|---|---|---|---|
-| **하드웨어** | ESP32-CAM | PC · MySQL 서버 | ESP8266 · 초음파 센서 · 서보 2개 | LED 3색 · 멜로디 IC · 부저 · 볼라드 외형 |
-| **입력** | 카메라 프레임 | 인식된 번호판 후보 | 초음파 거리 · DB 판단 결과 | — |
-| **처리** | 전처리(Gray · Blur · 이진화 · 평활화) → EasyOCR → 번호판 형식 필터링 | 공백 제거 → 정확 일치 조회, 최대 3회 시도 | 대기 → 승인 · 미승인 → 하강 → 주차 → 출차 → 상승 상태 전환 | ESP 모듈 · LED · 멜로디 IC 회로 설계, 볼라드 3D 모델링 · 프린팅 |
-| **출력** | 번호판 후보 문자열 | 등록 여부 `True` · `False` | HTTP 요청으로 서보 · LED · 멜로디 · 부저 제어 | 양쪽 서보로 볼라드를 눕히는 구조 |
+| **하드웨어** | ESP32-CAM | PC ·<br>MySQL 서버 | ESP8266 ·<br>초음파 센서 ·<br>서보 2개 | LED 3색 ·<br>멜로디 IC · 부저 ·<br>볼라드 외형 |
+| **입력** | 카메라 프레임 | 인식된<br>번호판 후보 | 초음파 거리 ·<br>DB 판단 결과 | — |
+| **처리** | 전처리(Gray · Blur ·<br>이진화 · 평활화) →<br>EasyOCR →<br>번호판 형식 필터링 | 공백 제거 →<br>정확 일치 조회,<br>최대 3회 시도 | 대기 → 승인 · 미승인 →<br>하강 → 주차 → 출차 →<br>상승 상태 전환 | ESP 모듈 · LED ·<br>멜로디 IC 회로 설계,<br>볼라드 3D 모델링 ·<br>프린팅 |
+| **출력** | 번호판 후보 문자열 | 등록 여부<br>`True` · `False` | HTTP 요청으로<br>서보 · LED · 멜로디 ·<br>부저 제어 | 양쪽 서보로<br>볼라드를 눕히는 구조 |
 
 초음파 센서가 50cm 이내에서 1초 이상 차량을 감지하면 촬영을 시작하고, ① → ② → ③ 순서로 판단해 볼라드를 움직입니다.  
 ② DB 구축 · 연동의 데모 · 동작 원리 · 코드 · 개발 과정은 [`license-plate-database/`](license-plate-database/)에서 볼 수 있습니다.
@@ -71,16 +71,16 @@
 flowchart TB
     subgraph HW["HARDWARE"]
         direction LR
-        US["초음파 센서<br>ESP8266"] ~~~ CAMH["카메라<br>ESP32-CAM"] ~~~ SV["서보 모터 · LED · 멜로디<br>ESP8266"]
+        US["<div style='width:173px;height:48px;display:flex;flex-direction:column;justify-content:center'>초음파 센서<br>ESP8266</div>"] ~~~ CAMH["<div style='width:173px;height:48px;display:flex;flex-direction:column;justify-content:center'>카메라<br>ESP32-CAM</div>"] ~~~ SV["<div style='width:173px;height:48px;display:flex;flex-direction:column;justify-content:center'>서보 모터 · LED · 멜로디<br>ESP8266</div>"]
     end
 
     subgraph SW["SOFTWARE"]
         direction LR
-        DIST["초음파 데이터 처리<br>get_distance()"]
+        DIST["<div style='width:173px;height:48px;display:flex;flex-direction:column;justify-content:center'>초음파 데이터 처리<br>get_distance()</div>"]
         subgraph REC["번호판 판단"]
-            ALG["번호 인식 알고리즘<br>OpenCV · EasyOCR"] <--> DB["Database<br>MySQL"]
+            ALG["<div style='width:173px;height:48px;display:flex;flex-direction:column;justify-content:center'>번호 인식 알고리즘<br>OpenCV · EasyOCR</div>"] <--> DB["<div style='width:173px;height:48px;display:flex;flex-direction:column;justify-content:center'>Database<br>MySQL</div>"]
         end
-        CTRL["ESP8266 제어<br>HTTP 요청"]
+        CTRL["<div style='width:173px;height:48px;display:flex;flex-direction:column;justify-content:center'>ESP8266 제어<br>HTTP 요청</div>"]
         DIST -- "50cm 이내 1초<br>→ 촬영 시작" --> REC
         REC -- "일치 여부에 따라" --> CTRL
     end

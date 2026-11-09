@@ -28,10 +28,10 @@
 번호판 인식 결과는 문자열일 뿐이라, 그 차량이 구역에 들어올 자격이 있는지는 따로 판단해야 합니다.  
 처음 다뤄 보는 MySQL을 익히는 것부터 시작해, 등록 차량 DB와 비교 모듈을 만들고 팀원 코드와의 통합 · 실행 환경 이전까지 맡았습니다.
 
-| | 처음 계획 | 실제 구현 |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 처음 계획 | 실제 구현 |
 |---|---|---|
-| **데이터** | 실제 장애인 · 전기차 등록 정보 | 실제 데이터가 공개되어 있지 않아 시연용 번호판 15대로 직접 구성 |
-| **실행 환경** | Raspberry Pi에서 DB · 인식 · 제어 통합 | Pi로 DB 이전(MariaDB) 후, PyTorch 호환 문제로 PC에서 최종 통합 |
+| **데이터** | 실제 장애인 · 전기차 등록 정보 | 실제 데이터가 공개되어 있지 않아<br>시연용 번호판 15대로 직접 구성 |
+| **실행 환경** | Raspberry Pi에서 DB · 인식 · 제어 통합 | Pi로 DB 이전(MariaDB) 후,<br>PyTorch 호환 문제로 PC에서 최종 통합 |
 
 <sub>[↑ 목차](#목차)</sub>
 
@@ -110,10 +110,10 @@ erDiagram
 
 ```mermaid
 flowchart TD
-    IN["ESP32-CAM 프레임"] --> OCR["번호판 인식<br/>형식 필터링 → 후보 목록"]
-    OCR --> CON["DB 연결<br/>connect_to_database()"]
-    CON --> CMP["후보별 정확 일치 조회<br/>compare_license_plate()"]
-    CMP --> OUT["등록 여부 True · False 반환<br/>→ 볼라드 상태 전환"]
+    IN["<div style='width:193px;height:48px;display:flex;flex-direction:column;justify-content:center'>ESP32-CAM 프레임</div>"] --> OCR["<div style='width:193px;height:48px;display:flex;flex-direction:column;justify-content:center'>번호판 인식<br/>형식 필터링 → 후보 목록</div>"]
+    OCR --> CON["<div style='width:193px;height:48px;display:flex;flex-direction:column;justify-content:center'>DB 연결<br/>connect_to_database()</div>"]
+    CON --> CMP["<div style='width:193px;height:48px;display:flex;flex-direction:column;justify-content:center'>후보별 정확 일치 조회<br/>compare_license_plate()</div>"]
+    CMP --> OUT["<div style='width:193px;height:48px;display:flex;flex-direction:column;justify-content:center'>등록 여부 True · False 반환<br/>→ 볼라드 상태 전환</div>"]
 
     classDef io fill:#57606a,stroke:#57606a,color:#fff
     classDef step fill:#f6f8fa,stroke:#d0d7de,color:#24292f
@@ -127,7 +127,7 @@ flowchart TD
 
 | 단계 | 기준 |
 |---|---|
-| 비교 쿼리 | `SELECT * FROM license_plates WHERE license_plate = %s` — 문자열을 쿼리에 직접 붙이지 않고 파라미터 바인딩 |
+| 비교 쿼리 | `SELECT * FROM license_plates WHERE license_plate = %s`<br>문자열을 쿼리에 직접 붙이지 않고 파라미터 바인딩 |
 | 공백 제거 | OCR은 `154러 7070`처럼 띄어 읽기 때문에 DB 형식에 맞춰 공백을 제거한 뒤 비교 |
 | 후보 여러 개 | 한 프레임에서 형식에 맞는 번호판이 여러 개 나오면 하나라도 일치하는지 확인 |
 | 연결 실패 | DB 연결에 실패하면 즉시 `False`를 반환해 미등록과 같은 쪽으로 동작 |
@@ -140,12 +140,12 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-    A["형식에 맞는<br/>후보 있음?"] -- 예 --> B["DB에 일치하는<br/>번호판 있음?"]
-    B -- 아니오 --> C["인식 시도<br/>3회째?"]
-    C -- 예 --> NG["Unauthorized<br/>볼라드 유지"]
-    A -- 아니오 --> R1["다음 프레임<br/>다시 인식"]
-    B -- 예 --> OK["Authorized<br/>볼라드 하강"]
-    C -- 아니오 --> R2["다음 프레임<br/>다시 인식"]
+    A["<div style='width:106px;height:48px;display:flex;flex-direction:column;justify-content:center'>형식에 맞는<br/>후보 있음?</div>"] -- 예 --> B["<div style='width:106px;height:48px;display:flex;flex-direction:column;justify-content:center'>DB에 일치하는<br/>번호판 있음?</div>"]
+    B -- 아니오 --> C["<div style='width:106px;height:48px;display:flex;flex-direction:column;justify-content:center'>인식 시도<br/>3회째?</div>"]
+    C -- 예 --> NG["<div style='width:106px;height:48px;display:flex;flex-direction:column;justify-content:center'>Unauthorized<br/>볼라드 유지</div>"]
+    A -- 아니오 --> R1["<div style='width:106px;height:48px;display:flex;flex-direction:column;justify-content:center'>다음 프레임<br/>다시 인식</div>"]
+    B -- 예 --> OK["<div style='width:106px;height:48px;display:flex;flex-direction:column;justify-content:center'>Authorized<br/>볼라드 하강</div>"]
+    C -- 아니오 --> R2["<div style='width:106px;height:48px;display:flex;flex-direction:column;justify-content:center'>다음 프레임<br/>다시 인식</div>"]
 
     classDef ask fill:#f6f8fa,stroke:#57606a,color:#24292f
     classDef danger fill:#ffebe9,stroke:#cf222e,color:#82071e
@@ -165,9 +165,9 @@ OCR이 글자를 잘못 읽는 경우를 고려해 최대 3회까지 시도하�
 
 ```mermaid
 flowchart LR
-    D["Vehicle Detected<br/>50cm 이내 1초"] --> Q{"DB 일치?"}
-    Q -- True --> A["Authorized<br/>녹색 LED · 딩동"] --> L["Bollard Lowering<br/>5° × 36단계 하강"] --> S["Parking Standby"] --> P["Parking<br/>10cm 이내 5초"] --> X["Exit<br/>이탈 후 상승"]
-    Q -- False --> U["Unauthorized<br/>빨간 LED 점멸 · 부저"]
+    D["<div style='width:148px;height:48px;display:flex;flex-direction:column;justify-content:center'>Vehicle Detected<br/>50cm 이내 1초</div>"] --> Q{"DB 일치?"}
+    Q -- True --> A["<div style='width:148px;height:48px;display:flex;flex-direction:column;justify-content:center'>Authorized<br/>녹색 LED · 딩동</div>"] --> L["<div style='width:148px;height:48px;display:flex;flex-direction:column;justify-content:center'>Bollard Lowering<br/>5° × 36단계 하강</div>"] --> S["<div style='width:148px;height:48px;display:flex;flex-direction:column;justify-content:center'>Parking Standby</div>"] --> P["<div style='width:148px;height:48px;display:flex;flex-direction:column;justify-content:center'>Parking<br/>10cm 이내 5초</div>"] --> X["<div style='width:148px;height:48px;display:flex;flex-direction:column;justify-content:center'>Exit<br/>이탈 후 상승</div>"]
+    Q -- False --> U["<div style='width:148px;height:48px;display:flex;flex-direction:column;justify-content:center'>Unauthorized<br/>빨간 LED 점멸 · 부저</div>"]
 
     classDef step fill:#f6f8fa,stroke:#d0d7de,color:#24292f
     classDef decide fill:#fff8c5,stroke:#d4a72c,color:#4d2d00
@@ -192,7 +192,7 @@ flowchart LR
 
 | # | 문제 | 해결 |
 |:-:|---|---|
-| 1 | `ModuleNotFoundError: No module named 'mysql'` | 가상환경(`myenv`)에 `mysql-connector-python`을 설치하고 같은 환경에서 실행 |
+| 1 | `ModuleNotFoundError: No module named 'mysql'` | 가상환경(`myenv`)에 `mysql-connector-python`을 설치하고<br>같은 환경에서 실행 |
 | 2 | `Unknown column 'plate_number' in 'where clause'` | `DESCRIBE license_plates`로 스키마를 확인한 뒤 쿼리 컬럼명 수정 |
 | 3 | Raspberry Pi에 MySQL 설치 실패 | MySQL 호환 DB인 MariaDB로 교체, 노트북 DB를 `mysqldump` → `scp` → 복원 |
 | 4 | Raspberry Pi에서 PyTorch 설치 불가 | 팀원들과 논의해 실행 환경을 PC(Windows)로 변경, DB 재구성 후 통합 테스트 |
